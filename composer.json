@@ -1,0 +1,9 @@
+{
+    "require": {
+        "vlucas/phpdotenv": "^2.3",
+        "bshaffer/oauth2-server-php": "dev-develop"
+    },
+    "require-dev": {
+        "phalcon/devtools": "dev-master"
+    }
+}
