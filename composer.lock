@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/bshaffer/oauth2-server-php.git",
-                "reference": "125965cd1d35bb85aa4f3c1c1e0a088790c6df31"
+                "reference": "8a68f3810b9add30108bd030629f4b478760d40e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bshaffer/oauth2-server-php/zipball/125965cd1d35bb85aa4f3c1c1e0a088790c6df31",
-                "reference": "125965cd1d35bb85aa4f3c1c1e0a088790c6df31",
+                "url": "https://api.github.com/repos/bshaffer/oauth2-server-php/zipball/8a68f3810b9add30108bd030629f4b478760d40e",
+                "reference": "8a68f3810b9add30108bd030629f4b478760d40e",
                 "shasum": ""
             },
             "require": {
@@ -60,7 +60,7 @@
                 "oauth",
                 "oauth2"
             ],
-            "time": "2016-03-04 19:13:00"
+            "time": "2016-07-15 17:57:03"
         },
         {
             "name": "vlucas/phpdotenv",

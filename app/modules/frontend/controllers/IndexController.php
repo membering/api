@@ -11,21 +11,24 @@ namespace App\Frontend\Controllers;
 use Libraries\ControllerBase;
 use Libraries\HttpStatusCode;
 use OauthClients;
-use Phalcon\Http\Request;
-use Phalcon\Http\Response;
 
 class IndexController extends ControllerBase
 {
     public function indexAction()
     {
         $oauth_users = OauthClients::findFirst();
-        $this->response($oauth_users, HttpStatusCode::NOT_FOUND);
+        $this->response($oauth_users);
     }
 
     public function tokenAction()
     {
+        $request = \OAuth2\Request::createFromGlobals();
+        $response = new \OAuth2\Response();
+
         $server = $this->oauth;
-        $server->handleTokenRequest(\OAuth2\Request::createFromGlobals())->send();
+        $server->handleTokenRequest($request, $response);
+
+        $this->response($response->getResponseBody(), $response->getStatusCode());
     }
 
     public function authorizeAction()

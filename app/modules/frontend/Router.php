@@ -13,12 +13,10 @@ use Phalcon\Mvc\Router\Group;
 
 $router = new Router();
 
-//Create a group with a common module and controller
 $group = new Group(array(
     'module' => 'frontend'
 ));
 
-//All the routes start with /blog
 $group->setPrefix('');
 
 $group->add('/', array(

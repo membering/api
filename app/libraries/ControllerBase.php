@@ -8,6 +8,7 @@
 
 namespace Libraries;
 
+use LogRequests;
 use Phalcon\Http\Request;
 use Phalcon\Http\Response;
 use Phalcon\Mvc\Controller;
@@ -16,7 +17,7 @@ class ControllerBase extends Controller
 {
     public function initialize()
     {
-        $this->view->disable();
+//        $this->view->disable();
 //        $server = $this->oauth;
 //        if (!$server->verifyResourceRequest(\OAuth2\Request::createFromGlobals())) {
 ////            $server->getResponse()->send();
@@ -28,31 +29,42 @@ class ControllerBase extends Controller
     public function response($content = null, $status = HttpStatusCode::OK)
     {
         $response = new Response();
+
         try {
             $response->setStatusCode($status);
         } catch (\Exception $e) {
             $status = HttpStatusCode::CONFLICT;
             $response->setStatusCode($status);
         }
-        $array = array(
-            'status' => $status
-        );
+        $array['status'] = $status;
+
         if (!empty($content)) {
             $content = $this->handleContent($content);
             if ($status == HttpStatusCode::OK) $array['data'] = $content;
             else $array['message'] = $content;
         }
+
         $response->setJsonContent($array);
         $response->send();
+
+        $this->setLog($array);
     }
 
-    public function setLog() {
+    private function setLog($output) {
+        $request = new Request();
+        $input = $request->get();
+        array_shift($input);
 
+        $log = new LogRequests();
+        $log->uri = $request->getURI();
+        $log->method = $request->getMethod();
+        $log->input = json_encode($input);
+        $log->output = json_encode($output);
+        $log->save();
     }
 
-    public function handleContent($string) {
-        if (is_array(json_decode($string, true)))
-            return json_decode($string, true);
+    private function handleContent($string) {
+        if (is_string($string) && is_array(json_decode($string, true))) return json_decode($string, true);
         return $string;
     }
 }
