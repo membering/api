@@ -2,28 +2,30 @@
 
 error_reporting(E_ALL);
 
-define('APP_PATH', realpath('..'));
-
 try {
-    require APP_PATH . '/vendor/autoload.php';
+    define('ROOT_PATH', realpath('..'));
 
-    $dotenv = new Dotenv\Dotenv(APP_PATH);
+    require ROOT_PATH . '/vendor/autoload.php';
+
+    $dotenv = new Dotenv\Dotenv(ROOT_PATH);
     $dotenv->load();
+
+    define('APP_ENV' , getenv('APP_ENV'));
 
     /**
      * Read the configuration
      */
-    $config = include APP_PATH . '/app/config/config.php';
+    $config = include ROOT_PATH . '/app/config/config.php';
 
     /**
      * Read auto-loader
      */
-    include APP_PATH . '/app/config/loader.php';
+    include ROOT_PATH . '/app/config/loader.php';
 
     /**
      * Read services
      */
-    include APP_PATH . '/app/config/services.php';
+    include ROOT_PATH . '/app/config/services.php';
 
     /**
      * Handle the request
@@ -33,12 +35,12 @@ try {
     /**
      * Read modules
      */
-    include APP_PATH . '/app/config/modules.php';
+    include ROOT_PATH . '/app/config/modules.php';
 
     /**
      * Read routers
      */
-    include APP_PATH . '/app/config/routers.php';
+    include ROOT_PATH . '/app/config/routers.php';
 
     echo $application->handle()->getContent();
 

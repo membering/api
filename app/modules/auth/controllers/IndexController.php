@@ -6,7 +6,7 @@
  * Time: 1:34 PM
  */
 
-namespace App\Frontend\Controllers;
+namespace App\Auth\Controllers;
 
 use Libraries\ControllerBase;
 use Libraries\HttpStatusCode;
@@ -27,8 +27,6 @@ class IndexController extends ControllerBase
 
         $server = $this->oauth;
         $server->handleTokenRequest($request, $response)->send();
-
-//        $this->response($response->getResponseBody(), $response->getStatusCode());
     }
 
     public function authorizeAction()
@@ -40,7 +38,6 @@ class IndexController extends ControllerBase
 
         if (!$server->validateAuthorizeRequest($request, $response)) {
             $this->response($response->getResponseBody(), $response->getStatusCode());
-            return;
         }
 
         $is_authorized = ($request->request('is_authorized') === 'yes');
@@ -50,7 +47,6 @@ class IndexController extends ControllerBase
         if ($is_authorized) {
             $code = substr($response->getHttpHeader('Location'), strpos($response->getHttpHeader('Location'), 'code=')+5, 40);
             $this->response($code, HttpStatusCode::OK);
-            return;
         }
 
         $response->send();
@@ -62,11 +58,6 @@ class IndexController extends ControllerBase
         $response = new \OAuth2\Response();
 
         $server = $this->oauth;
-
-//        if (!$server->verifyResourceRequest($request, $response)) {
-//            $this->response($response->getResponseBody(), $response->getStatusCode());
-//            return;
-//        }
 
         $token = $server->getAccessTokenData($request, $response);
         $this->response($token, $response->getStatusCode());

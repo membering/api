@@ -1,6 +1,6 @@
 <?php
 
-defined('APP_PATH') || define('APP_PATH', realpath('.'));
+defined('ROOT_PATH') || define('ROOT_PATH', realpath('.'));
 
 $loader = new \Phalcon\Loader();
 
@@ -10,14 +10,12 @@ $loader = new \Phalcon\Loader();
 $loader
     ->registerDirs(
         array(
-            $config->application->controllersDir,
             $config->application->modelsDir
         )
     )
     ->registerNamespaces(
         array(
-            'Libraries' => APP_PATH . '/app/libraries',
-            'Phalcon\OAuth2\Server' => APP_PATH . '/app/libraries/OAuth2'
+            'Libraries' => ROOT_PATH . '/app/libraries'
         )
     )
     ->register();

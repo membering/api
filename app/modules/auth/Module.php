@@ -6,7 +6,7 @@
  * Time: 1:26 PM
  */
 
-namespace App\Frontend;
+namespace App\Auth;
 
 use Phalcon\Loader;
 use Phalcon\DiInterface;
@@ -15,7 +15,7 @@ use Phalcon\Mvc\ModuleDefinitionInterface;
 
 class Module implements ModuleDefinitionInterface
 {
-    const MODULE_NAMESPACE = 'App\Frontend\Controllers';
+    const MODULE_NAMESPACE = 'App\Auth';
     /**
      * Register a specific autoloader for the module
      */
@@ -23,7 +23,8 @@ class Module implements ModuleDefinitionInterface
     {
         $loader = new Loader();
         $loader->registerNamespaces(array(
-            self::MODULE_NAMESPACE => __DIR__ . '/controllers/'
+            self::MODULE_NAMESPACE . '\Controllers' => __DIR__ . '/controllers/',
+            self::MODULE_NAMESPACE. '\Validators' => __DIR__ . '/validators/'
         ));
         $loader->register();
     }
@@ -35,7 +36,7 @@ class Module implements ModuleDefinitionInterface
     {
         $di->set('dispatcher', function () {
             $dispatcher = new Dispatcher();
-            $dispatcher->setDefaultNamespace(self::MODULE_NAMESPACE);
+            $dispatcher->setDefaultNamespace(self::MODULE_NAMESPACE . '\Controllers');
             return $dispatcher;
         });
     }

@@ -1,3 +1,6 @@
 .idea/*
 /vendor
 .env
+composer.lock
+private.key
+public.key

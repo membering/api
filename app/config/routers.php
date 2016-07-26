@@ -6,7 +6,7 @@
  * Time: 1:06 PM
  */
 
-defined('APP_PATH') || define('APP_PATH', realpath('.'));
+defined('ROOT_PATH') || define('ROOT_PATH', realpath('.'));
 
 use Phalcon\Mvc\Router;
 
@@ -16,7 +16,7 @@ $di->set('router', function () use ($application) {
 
     foreach ($application->getModules() as $key => $module) {
         $namespace = str_replace('Module', 'Controllers', $module["className"]);
-        $moduleRouter = APP_PATH . '/app/modules/' . $key . '/Router.php';
+        $moduleRouter = ROOT_PATH . '/app/modules/' . $key . '/Router.php';
         if (file_exists($moduleRouter) && is_file($moduleRouter)) {
             $router = include $moduleRouter;
         }

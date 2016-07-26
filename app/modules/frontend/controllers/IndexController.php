@@ -26,9 +26,9 @@ class IndexController extends ControllerBase
         $response = new \OAuth2\Response();
 
         $server = $this->oauth;
-        $server->handleTokenRequest($request, $response);
+        $server->handleTokenRequest($request, $response)->send();
 
-        $this->response($response->getResponseBody(), $response->getStatusCode());
+//        $this->response($response->getResponseBody(), $response->getStatusCode());
     }
 
     public function authorizeAction()
@@ -63,10 +63,10 @@ class IndexController extends ControllerBase
 
         $server = $this->oauth;
 
-        if (!$server->verifyResourceRequest($request, $response)) {
-            $this->response($response->getResponseBody(), $response->getStatusCode());
-            return;
-        }
+//        if (!$server->verifyResourceRequest($request, $response)) {
+//            $this->response($response->getResponseBody(), $response->getStatusCode());
+//            return;
+//        }
 
         $token = $server->getAccessTokenData($request, $response);
         $this->response($token, $response->getStatusCode());

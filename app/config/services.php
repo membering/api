@@ -10,7 +10,7 @@ use Phalcon\Mvc\View;
 use Phalcon\Mvc\Url as UrlResolver;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 
-defined('APP_PATH') || define('APP_PATH', realpath('.'));
+defined('ROOT_PATH') || define('ROOT_PATH', realpath('.'));
 
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework

@@ -6,7 +6,7 @@
  * Time: 1:43 PM
  */
 
-namespace App\Frontend;
+namespace App\Auth;
 
 use Phalcon\Mvc\Router;
 use Phalcon\Mvc\Router\Group;
@@ -14,15 +14,10 @@ use Phalcon\Mvc\Router\Group;
 $router = new Router();
 
 $group = new Group(array(
-    'module' => 'frontend'
+    'module' => 'auth'
 ));
 
-$group->setPrefix('');
-
-$group->add('/', array(
-    'controller' => 'index',
-    'action' => 'index'
-));
+$group->setPrefix('/auth');
 
 $group->add('/token', array(
     'controller' => 'index',
@@ -39,7 +34,21 @@ $group->add('/resource', array(
     'action' => 'resource'
 ));
 
-//Add the group to the router
+$group->add('/register', array(
+    'controller' => 'user',
+    'action' => 'register'
+));
+
+$group->add('/login', array(
+    'controller' => 'user',
+    'action' => 'login'
+));
+
+$group->add('/logout', array(
+    'controller' => 'user',
+    'action' => 'logout'
+));
+
 $router->mount($group);
 
 return $router;
