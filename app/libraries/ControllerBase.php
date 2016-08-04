@@ -16,18 +16,18 @@ class ControllerBase extends Controller
 {
     public function initialize()
     {
-        $module = $this->dispatcher->getModuleName();
-        $controller = $this->dispatcher->getControllerName();
-        $action = $this->dispatcher->getActionName();
-
-        if ($module == 'auth' && $controller == 'index' && $action == 'token') {
-        }
-        else {
-            $server = $this->oauth;
-            if (!$server->verifyResourceRequest(\OAuth2\Request::createFromGlobals())) {
-                $this->response('Un-authorized', HttpStatusCode::UNAUTHORIZED);
-            }
-        }
+//        $module = $this->dispatcher->getModuleName();
+//        $controller = $this->dispatcher->getControllerName();
+//        $action = $this->dispatcher->getActionName();
+//
+//        if ($module == 'auth' && $controller == 'index' && $action == 'token') {
+//        }
+//        else {
+//            $server = $this->oauth;
+//            if (!$server->verifyResourceRequest(\OAuth2\Request::createFromGlobals())) {
+//                $this->response('Un-authorized', HttpStatusCode::UNAUTHORIZED);
+//            }
+//        }
     }
 
     public function response($content = null, $status = HttpStatusCode::OK)
@@ -48,6 +48,7 @@ class ControllerBase extends Controller
             else $array['message'] = $content;
         }
 
+        $response->setContentType('application/json', 'UTF-8');
         $response->setJsonContent($array);
         $response->send();
 

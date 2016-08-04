@@ -68,9 +68,4 @@ class IndexController extends ControllerBase
         $request = \OAuth2\Request::createFromGlobals();
         $code = $request->request('code');
     }
-
-    public function testAction()
-    {
-        echo 'Module Frontend ' . getenv('DB_ADAPTER');
-    }
 }

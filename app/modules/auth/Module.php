@@ -16,6 +16,7 @@ use Phalcon\Mvc\ModuleDefinitionInterface;
 class Module implements ModuleDefinitionInterface
 {
     const MODULE_NAMESPACE = 'App\Auth';
+
     /**
      * Register a specific autoloader for the module
      */

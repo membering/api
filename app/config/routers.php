@@ -15,35 +15,17 @@ $di->set('router', function () use ($application) {
     $router->setDefaultModule('frontend');
 
     foreach ($application->getModules() as $key => $module) {
-        $namespace = str_replace('Module', 'Controllers', $module["className"]);
-        $moduleRouter = ROOT_PATH . '/app/modules/' . $key . '/Router.php';
-        if (file_exists($moduleRouter) && is_file($moduleRouter)) {
-            $router = include $moduleRouter;
-        }
-        else {
-            $router->add('/' . $key . '/:params', array(
-                'namespace' => $namespace,
-                'module' => $key,
-                'controller' => 'index',
-                'action' => 'index',
-                'params' => 1
-            ))->setName($key);
-            $router->add('/' . $key . '/:controller/:params', array(
-                'namespace' => $namespace,
-                'module' => $key,
-                'controller' => 1,
-                'action' => 'index',
-                'params' => 2
-            ));
-            $router->add('/' . $key . '/:controller/:action/:params', array(
-                'namespace' => $namespace,
-                'module' => $key,
-                'controller' => 1,
-                'action' => 2,
-                'params' => 3
-            ));
+        $routeClass = str_replace('Module', 'Route', $module['className']);
+        $routePath = str_replace('Module', 'Route', $module['path']);
+        if (file_exists($routePath) && is_file($routePath)) {
+            include $routePath;
+            $classRouter = new $routeClass();
+            if (method_exists($classRouter, 'get')) {
+                $router = $classRouter->get($router);
+            }
         }
     }
 
+    $router->removeExtraSlashes(true);
     return $router;
 });

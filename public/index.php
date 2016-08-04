@@ -1,5 +1,8 @@
 <?php
 
+use Libraries\HttpStatusCode;
+use Phalcon\Http\Response;
+
 error_reporting(E_ALL);
 
 try {
@@ -45,6 +48,13 @@ try {
     echo $application->handle()->getContent();
 
 } catch (\Exception $e) {
-    echo $e->getMessage() . '<br>';
-    echo '<pre>' . $e->getTraceAsString() . '</pre>';
+    $response = new Response();
+
+    $array['status'] = HttpStatusCode::SERVICE_UNAVAILABLE;
+    $array['message'] = $e->getMessage();
+
+    $response->setContentType('application/json', 'UTF-8');
+    $response->setStatusCode(HttpStatusCode::SERVICE_UNAVAILABLE);
+    $response->setJsonContent($array);
+    $response->send();
 }
