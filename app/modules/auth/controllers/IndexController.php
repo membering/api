@@ -10,16 +10,9 @@ namespace App\Auth\Controllers;
 
 use Libraries\ControllerBase;
 use Libraries\HttpStatusCode;
-use OauthClients;
 
 class IndexController extends ControllerBase
 {
-    public function indexAction()
-    {
-        $oauth_users = OauthClients::findFirst();
-        $this->response($oauth_users);
-    }
-
     public function tokenAction()
     {
         $request = \OAuth2\Request::createFromGlobals();
